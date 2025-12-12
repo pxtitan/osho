@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Osho Discourses - Download Center</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg/500px-Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Download Osho discourses in English and Hindi. Browse, search, and select talks to download instantly.">
+    <meta name="keywords" content="Osho, Bhagwan Shree Rajneesh, discourses, English, Hindi, download, talks, spiritual teachings">
+    <link rel="canonical" href="https://pxtitan.github.io/osho/">
+    <meta property="og:title" content="Osho Discourses - English & Hindi Downloads">
+    <meta property="og:description" content="Browse, search, and download Osho's discourses in English and Hindi. Preloaded links, quick selection, easy downloads.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg/500px-Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg">
+    <meta property="og:url" content="https://pxtitan.github.io/osho/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Osho Discourses - English & Hindi Downloads">
+    <meta name="twitter:description" content="Browse, search, and download Osho's discourses in English and Hindi.">
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg/500px-Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg">
 </head>
 <body>
     <div class="container">
         <!-- Introduction Section -->
         <header class="intro-section">
             <div class="osho-photo">
-                <!-- <img src="osho.jpg" alt="Osho" id="osho-image"> -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg/500px-Bhagwan_beweging_gekwetst_door_reclame-affiche_van_het_NRC_met_de_tekst_profeet%2C_Bestanddeelnr_933-0734-cropped.jpg" alt="Osho" id="osho-image">
             </div>
             <div class="intro-text">
                 <h1>Osho</h1>
@@ -47,13 +62,13 @@
             <div class="audio-header">
                 <h2>Available Discourses</h2>
                 <div class="select-controls">
-                    <input id="searchInput" type="text" placeholder="Search by title...">
-                    <button id="searchBtn">Search</button>
-                    <button id="selectAll">Select All</button>
-                    <button id="deselectAll">Deselect All</button>
+                    <input id="searchInput" class="border-4px" type="text" placeholder="Search by title...">
+                    <button id="searchBtn" class="border-4px">Search</button>
+                    <button id="selectAll" class="border-4px">Select All</button>
+                    <button id="deselectAll" class="border-4px">Deselect All</button>
                 </div>
             </div>
-            <div class="audio-list" id="audioList">
+            <div class="audio-list border-4px" id="audioList">
                 <!-- Audio items will be dynamically added here -->
             </div>
         </div>
