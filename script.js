@@ -131,18 +131,15 @@ function downloadSelected() {
     const urls = Array.from(checkboxes).map(cb => buildDownloadUrl(cb.dataset.url));
     urls.forEach((url, index) => {
         setTimeout(() => {
-            const win = window.open(url, '_blank', 'noopener');
-            if (!win) {
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = '';
-                a.target = '_blank';
-                a.rel = 'noopener';
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '';
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }, index * 400);
     });
 }
