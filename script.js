@@ -30,7 +30,7 @@ const audioLinksData = {
 };
 
 // Set to your Railway domain (e.g., "https://your-app.up.railway.app") to route downloads through the /download proxy.
-const RAILWAY_DOMAIN = "";
+const RAILWAY_DOMAIN = "https://osho-production.up.railway.app";
 
 const buildDownloadUrl = (url) =>
     RAILWAY_DOMAIN ? `${RAILWAY_DOMAIN}/download?url=${encodeURIComponent(url)}` : url;
