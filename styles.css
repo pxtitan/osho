@@ -1,3 +1,7 @@
+/*
+    Global styles for the Osho downloads SPA.
+    Sections: base, language chooser, notice, audio list/layout, per-item download icon, responsive tweaks.
+*/
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -247,6 +251,7 @@ body {
     padding-right: 12px;
 }
 
+/* Per-item download button */
 .download-icon {
     width: 42px;
     height: 42px;

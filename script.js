@@ -1,4 +1,4 @@
-// Extract name from URL
+// Extract a human-friendly name from a URL (strip query/fragment, extension, and clean spacing).
 function extractNameFromUrl(url) {
     try {
         let cleanUrl = url.split('?')[0].split('#')[0];
@@ -14,7 +14,7 @@ function extractNameFromUrl(url) {
     }
 }
 
-// Storage for audio links
+// Parse the preloaded newline-separated URLs into {url, name} objects for rendering.
 const parsePredefinedLinks = (input) => {
     const lines = Array.isArray(input) ? input : String(input || '').split('\n');
     return lines
@@ -45,7 +45,7 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const shareBtn = document.getElementById('shareBtn');
 
-// Initialize
+// Initialize once DOM is ready.
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     renderAudioList();
@@ -74,7 +74,7 @@ function applySearch() {
     renderAudioList();
 }
 
-// Render audio list
+// Render audio list with per-item download buttons.
 function renderAudioList() {
     const currentLinks = audioLinksData[currentLanguage] || [];
     const filtered = currentSearch
@@ -105,6 +105,7 @@ function renderAudioList() {
 }
 
 async function shareSite() {
+    // Prefer Web Share API; fall back to clipboard or manual prompt on unsupported platforms.
     const shareData = {
         title: 'Osho Discourses',
         text: 'Browse and download Osho discourses (English & Hindi).',

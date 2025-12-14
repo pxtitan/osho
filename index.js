@@ -1,3 +1,4 @@
+// Minimal Express server that serves the static front-end and proxies audio downloads.
 import express from "express";
 import { Readable, pipeline } from "node:stream";
 import { promisify } from "node:util";
@@ -6,11 +7,14 @@ import path from "node:path";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+// Promisified pipeline so we can await streaming completion/error.
 const streamPipeline = promisify(pipeline);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// Serve the built assets from the repo root.
 const PUBLIC_DIR = __dirname;
 
+// Only allow http/https targets; prevents file:/ and other schemes.
 const isValidHttpUrl = (value) => {
   try {
     const parsed = new URL(value);
@@ -20,6 +24,7 @@ const isValidHttpUrl = (value) => {
   }
 };
 
+// Pick a download filename from content-disposition if present; otherwise from URL path.
 const buildFilename = (fileUrl, response) => {
   const disposition = response.headers.get("content-disposition");
   const match = disposition?.match(/filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i);
@@ -48,11 +53,13 @@ app.get(["/", "/index.html"], (req, res) => {
 });
 
 app.get("/download", async (req, res) => {
+  // Validate incoming URL to avoid proxy misuse.
   const fileUrl = req.query.url;
   if (!fileUrl || typeof fileUrl !== "string" || !isValidHttpUrl(fileUrl)) {
     return res.status(400).send("Invalid or missing file URL");
   }
 
+  // Abort upstream fetch if it stalls beyond 15s.
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000);
 
@@ -67,6 +74,7 @@ app.get("/download", async (req, res) => {
 
   clearTimeout(timeoutId);
 
+  // Bail out if origin responds with error or no stream.
   if (!upstream.ok || !upstream.body) {
     return res
       .status(upstream.status || 502)
