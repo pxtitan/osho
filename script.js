@@ -41,10 +41,6 @@ let currentSearch = '';
 // DOM Elements
 const languageButtons = document.querySelectorAll('.lang-btn');
 const audioList = document.getElementById('audioList');
-const selectAllBtn = document.getElementById('selectAll');
-const deselectAllBtn = document.getElementById('deselectAll');
-const downloadBtn = document.getElementById('downloadBtn');
-const selectedCountSpan = document.getElementById('selectedCount');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 
@@ -64,9 +60,6 @@ function setupEventListeners() {
             renderAudioList();
         });
     });
-    selectAllBtn.addEventListener('click', () => toggleAllCheckboxes(true));
-    deselectAllBtn.addEventListener('click', () => toggleAllCheckboxes(false));
-    downloadBtn.addEventListener('click', downloadSelected);
     searchBtn.addEventListener('click', () => applySearch());
     searchInput.addEventListener('input', () => applySearch());
     searchInput.addEventListener('keydown', (e) => {
@@ -87,60 +80,39 @@ function renderAudioList() {
         : currentLinks;
     if (filtered.length === 0) {
         audioList.innerHTML = '<div class="empty-state">No audio links available.</div>';
-        updateSelectedCount();
         return;
     }
     audioList.innerHTML = '';
     filtered.forEach((audio, index) => {
         const audioItem = document.createElement('div');
         audioItem.className = 'audio-item';
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = `audio-${index}`;
-        checkbox.dataset.url = audio.url;
-        checkbox.addEventListener('change', updateSelectedCount);
-        const label = document.createElement('label');
-        label.htmlFor = `audio-${index}`;
+        const label = document.createElement('span');
+        label.className = 'audio-title';
         label.textContent = audio.name;
-        audioItem.appendChild(checkbox);
+
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'download-icon';
+        downloadBtn.setAttribute('aria-label', `Download ${audio.name}`);
+        downloadBtn.innerText = '↓';
+        downloadBtn.addEventListener('click', () => downloadSingle(audio.url));
+
         audioItem.appendChild(label);
+        audioItem.appendChild(downloadBtn);
         audioList.appendChild(audioItem);
     });
-    updateSelectedCount();
 }
 
-// Toggle all checkboxes
-function toggleAllCheckboxes(checked) {
-    const checkboxes = audioList.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(cb => cb.checked = checked);
-    updateSelectedCount();
-}
-
-// Update selected count
-function updateSelectedCount() {
-    const checkboxes = audioList.querySelectorAll('input[type="checkbox"]');
-    const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-    selectedCountSpan.textContent = checkedCount;
-    downloadBtn.disabled = checkedCount === 0;
-}
-
-// Download selected audios
-function downloadSelected() {
-    const checkboxes = audioList.querySelectorAll('input[type="checkbox"]:checked');
-    if (checkboxes.length === 0) return;
-    const urls = Array.from(checkboxes).map(cb => buildDownloadUrl(cb.dataset.url));
-    urls.forEach((url, index) => {
-        setTimeout(() => {
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = '';
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }, index * 400);
-    });
+// Download a single audio via proxy (if configured)
+function downloadSingle(url) {
+    const finalUrl = buildDownloadUrl(url);
+    const a = document.createElement('a');
+    a.href = finalUrl;
+    a.download = '';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
