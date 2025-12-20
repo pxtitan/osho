@@ -163,16 +163,8 @@ const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matc
 function applyTheme(theme) {
     html.setAttribute("color-scheme", theme);
     html.style.colorScheme = theme; // This is what makes light-dark() work
-    //update icon
-    const sun=document.getElementById("sun");
-    const moon=document.getElementById("moon");
-    if(theme==="dark"){
-        sun.style.display="none";
-        moon.style.display="block";
-    } else{
-        sun.style.display="block";
-        moon.style.display="none";
-    }
+    // Use class instead of direct style manipulation for better performance
+    toggleBtn.setAttribute('data-theme', theme);
 }
 
 if (savedTheme) {
