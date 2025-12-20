@@ -10,8 +10,8 @@
 }
 @font-face {
   font-family: "MonoLisa";
-  src: url("/assets/MonoLisa/MonoLisa-Regular.woff2") format("woff2"),
-    url("/assets/MonoLisa/MonoLisa-Regular.ttf") format("truetype");
+  src: url("/osho/assets/MonoLisa/MonoLisa-Regular.woff2") format("woff2"),
+    url("/osho/assets/MonoLisa/MonoLisa-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
