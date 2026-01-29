@@ -29,8 +29,14 @@ const audioLinksData = {
     hindi: parsePredefinedLinks(preloaded.hindi || preloaded.hindiText)
 };
 
+// ============================================
+// RAILWAY PROXY - COMMENTED OUT
 // Set to your Railway domain (e.g., "https://your-app.up.railway.app") to route downloads through the /download proxy.
-const RAILWAY_DOMAIN = "https://osho-production.up.railway.app";
+// const RAILWAY_DOMAIN = "https://osho-production.up.railway.app";
+// ============================================
+
+// DEFAULT BEHAVIOR - Direct download URLs
+const RAILWAY_DOMAIN = null;
 
 const buildDownloadUrl = (url) =>
     RAILWAY_DOMAIN ? `${RAILWAY_DOMAIN}/download?url=${encodeURIComponent(url)}` : url;

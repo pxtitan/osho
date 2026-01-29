@@ -1,19 +1,23 @@
 // Minimal Express server that serves the static front-end and proxies audio downloads.
 import express from "express";
-import { Readable, pipeline } from "node:stream";
-import { promisify } from "node:util";
+// import { Readable, pipeline } from "node:stream";
+// import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Promisified pipeline so we can await streaming completion/error.
-const streamPipeline = promisify(pipeline);
+// const streamPipeline = promisify(pipeline);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Serve the built assets from the repo root.
 const PUBLIC_DIR = __dirname;
 
+// ============================================
+// RAILWAY PROXY CODE - COMMENTED OUT
+// ============================================
+/*
 // Only allow http/https targets; prevents file:/ and other schemes.
 const isValidHttpUrl = (value) => {
   try {
@@ -45,6 +49,7 @@ const buildFilename = (fileUrl, response) => {
     return "download.bin";
   }
 };
+*/
 
 app.use(express.static(PUBLIC_DIR));
 
@@ -52,6 +57,8 @@ app.get(["/", "/index.html"], (req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, "index.html"));
 });
 
+/*
+// RAILWAY DOWNLOAD PROXY ENDPOINT - COMMENTED OUT
 app.get("/download", async (req, res) => {
   // Validate incoming URL to avoid proxy misuse.
   const fileUrl = req.query.url;
@@ -107,6 +114,7 @@ app.get("/download", async (req, res) => {
     }
   }
 });
+*/
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
