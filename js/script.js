@@ -36,7 +36,7 @@ const audioLinksData = {
 // ============================================
 
 // DEFAULT BEHAVIOR - Direct download URLs
-const RAILWAY_DOMAIN = 192.168.29.241;
+const RAILWAY_DOMAIN = null;
 
 const buildDownloadUrl = (url) =>
     RAILWAY_DOMAIN ? `${RAILWAY_DOMAIN}/download?url=${encodeURIComponent(url)}` : url;
